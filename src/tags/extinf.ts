@@ -1,6 +1,6 @@
-import { HLSLine, HLSLineType } from '../../types';
+import { HLSLine, HLSLineType } from '../types';
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
+import { HLSParsingError } from '../errors/hls-parsing-error';
 
 export class Extinf implements HLSLine {
   duration: number;

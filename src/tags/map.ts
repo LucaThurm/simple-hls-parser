@@ -1,8 +1,7 @@
-import { HLSLine, HLSLineType, HLSSegmentMap } from '../../types';
+import { HLSLine, HLSLineType, HLSSegmentMap } from '../types';
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
-import { HLSTagParsingError } from '../../errors/hls-tag-parsing-error';
-import { parseAttributeList } from '../../utils/parsing';
+import { HLSParsingError } from '../errors/hls-parsing-error';
+import { parseAttributeList } from '../utils/parse-attribute-list';
 
 export class Map implements HLSLine, HLSSegmentMap {
   uri: string;
@@ -17,7 +16,7 @@ export class Map implements HLSLine, HLSSegmentMap {
     const matches = line.match(/^EXT-X-MAP:(.*)$/);
 
     if (!matches) {
-      throw new HLSTagParsingError('#EXT-X-MAP', line);
+      throw new HLSParsingError();
     }
 
     const attributes = parseAttributeList(matches[1]);

@@ -1,13 +1,12 @@
-import { parseAttributeList } from '../../utils/parsing';
-import { HLSTagParsingError } from '../../errors/hls-tag-parsing-error';
+import Joi from 'joi';
 import {
   HLSLine,
   HLSLineType,
   HLSSegmentKey,
   HLSSegmentKeyMethod,
-} from '../../types';
-import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
+} from '../types';
+import { HLSParsingError } from '../errors/hls-parsing-error';
+import { parseAttributeList } from '../utils/parse-attribute-list';
 
 export class Key implements HLSLine, HLSSegmentKey {
   method: string;
@@ -28,7 +27,7 @@ export class Key implements HLSLine, HLSSegmentKey {
     const matches = line.match(/^#EXT-X-KEY:(.*)$/);
 
     if (!matches) {
-      throw new HLSTagParsingError('#EXT-X-KEY', line);
+      throw new HLSParsingError();
     }
 
     const attributes = parseAttributeList(matches[1]);

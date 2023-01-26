@@ -1,4 +1,4 @@
-import { Extm3u } from '../../src/lines/basic/extm3u';
+import { Extm3u } from '../../src/tags/extm3u';
 
 const validLine = '#EXTM3U';
 

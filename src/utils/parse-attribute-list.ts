@@ -1,4 +1,4 @@
-import { HLSAttributeListParsingError } from '../errors/hls-attribute-list-parsing-error';
+import { HLSParsingError } from '../errors/hls-parsing-error';
 
 export function parseAttributeList(attrList: string) {
   const regex = /(?:((?:[A-Z0-9-])+)=("[^"]*"|0[xX][a-fA-F0-9]+|[A-Z0-9-]+))+/g;
@@ -6,7 +6,7 @@ export function parseAttributeList(attrList: string) {
   const matches = [...attrList.matchAll(regex)];
 
   if (!matches || matches.length === 0) {
-    throw new HLSAttributeListParsingError(attrList);
+    throw new HLSParsingError(attrList);
   }
 
   return matches.map((m) => {

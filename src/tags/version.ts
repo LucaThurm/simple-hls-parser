@@ -1,6 +1,6 @@
-import { HLSLine, HLSLineType } from '../../types';
+import { HLSLine, HLSLineType } from '../types';
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
+import { HLSParsingError } from '../errors/hls-parsing-error';
 
 export class Version implements HLSLine {
   value: number;
@@ -13,7 +13,7 @@ export class Version implements HLSLine {
     const matches = line.match(/^#EXT-X-VERSION:([0-9]+)$/);
 
     if (!matches) {
-      throw new Error(`Failed to parse EXT-X-VERSION line "${line}"`);
+      throw new HLSParsingError();
     }
 
     this.value = this.#parseValue(matches[1]);

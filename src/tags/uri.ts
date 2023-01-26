@@ -1,4 +1,4 @@
-import { HLSLine, HLSLineType } from '../../types';
+import { HLSLine, HLSLineType } from '../types';
 
 export class Uri implements HLSLine {
   value: string;

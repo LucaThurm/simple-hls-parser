@@ -1,5 +1,5 @@
-import { HLSParsingError } from '../../errors/hls-parsing-error';
-import { HLSLine, HLSLineType } from '../../types';
+import { HLSParsingError } from '../errors/hls-parsing-error';
+import { HLSLine, HLSLineType } from '../types';
 
 export class IFramesOnly implements HLSLine {
   get type(): HLSLineType {

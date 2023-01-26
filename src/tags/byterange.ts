@@ -1,7 +1,6 @@
-import { HLSTagParsingError } from '../../errors/hls-tag-parsing-error';
-import { HLSLine, HLSLineType, HLSSegmentByterange } from '../../types';
+import { HLSLine, HLSLineType, HLSSegmentByterange } from '../types';
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
+import { HLSParsingError } from '../errors/hls-parsing-error';
 
 export class Byterange implements HLSLine, HLSSegmentByterange {
   length: number;
@@ -16,7 +15,7 @@ export class Byterange implements HLSLine, HLSSegmentByterange {
     const matches = line.match(/^#EXT-X-BYTERANGE:([0-9]+)(@([0-9]+))?$/);
 
     if (!matches) {
-      throw new HLSTagParsingError('#EXT-X-BYTERANGE', line);
+      throw new HLSParsingError();
     }
 
     this.length = this.#parseLength(matches[1]);

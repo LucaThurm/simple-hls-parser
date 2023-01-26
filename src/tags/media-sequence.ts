@@ -1,8 +1,8 @@
+import { HLSLine, HLSLineType } from '../types';
+import { HLSParsingError } from '../errors/hls-parsing-error';
 import Joi from 'joi';
-import { HLSLine, HLSLineType } from '../../types';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
 
-export class DiscontinuitySequence implements HLSLine {
+export class MediaSequence implements HLSLine {
   value: number;
 
   get type(): HLSLineType {
@@ -10,7 +10,7 @@ export class DiscontinuitySequence implements HLSLine {
   }
 
   constructor(line: string) {
-    const matches = line.match(/^#EXT-X-DISCONTINUITY-SEQUENCE$/);
+    const matches = line.match(/^#EXT-X-MEDIA-SEQUENCE:([0-9]+)$/);
 
     if (!matches) {
       throw new HLSParsingError();

@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { MediaPlaylist } from './playlist-v2';
+import { MediaPlaylist } from './media-playlist';
 
 const hls = readFileSync('example.m3u8').toString();
 

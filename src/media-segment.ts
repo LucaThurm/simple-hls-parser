@@ -6,14 +6,14 @@ import {
   HLSSegmentKey,
   HLSSegmentMap,
 } from './types';
-import { Extinf } from './lines/media-segment/extinf';
-import { Uri } from './lines/media-segment/uri';
-import { Byterange } from './lines/media-segment/byterange';
-import { Discontinuity } from './lines/media-segment/discontinuity';
-import { Key } from './lines/media-segment/key';
-import { Map } from './lines/media-segment/map';
-import { ProgramDateTime } from './lines/media-segment/program-date-time';
-import { Daterange } from './lines/media-segment/daterange';
+import { Extinf } from './tags/extinf';
+import { Uri } from './tags/uri';
+import { Byterange } from './tags/byterange';
+import { Discontinuity } from './tags/discontinuity';
+import { Key } from './tags/key';
+import { Map } from './tags/map';
+import { ProgramDateTime } from './tags/program-date-time';
+import { Daterange } from './tags/daterange';
 import { HLSParsingError } from './errors/hls-parsing-error';
 
 export class Segment implements HLSSegment {

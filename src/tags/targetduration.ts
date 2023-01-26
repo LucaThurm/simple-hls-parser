@@ -1,6 +1,6 @@
-import { HLSLine, HLSLineType } from '../../types';
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
+import { HLSParsingError } from '../errors/hls-parsing-error';
+import { HLSLine, HLSLineType } from '../types';
 
 export class TargetDuration implements HLSLine {
   value: number;

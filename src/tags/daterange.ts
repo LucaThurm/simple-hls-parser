@@ -1,12 +1,12 @@
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
+import { HLSParsingError } from '../errors/hls-parsing-error';
 import {
   HLSClientAttribute,
   HLSDateRange,
   HLSLine,
   HLSLineType,
-} from '../../types';
-import { parseAttributeList } from '../../utils/parsing';
+} from '../types';
+import { parseAttributeList } from '../utils/parse-attribute-list';
 
 export class Daterange implements HLSLine, HLSDateRange {
   id: string;

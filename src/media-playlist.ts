@@ -1,21 +1,22 @@
-import { Extm3u } from './lines/basic/extm3u';
-import { Version } from './lines/basic/version';
-import { DiscontinuitySequence } from './lines/media-playlist/discontinuity-sequence';
-import { Endlist } from './lines/media-playlist/endlist';
-import { IFramesOnly } from './lines/media-playlist/i-frames-only';
-import { MediaSequence } from './lines/media-playlist/media-sequence';
-import { PlaylistType } from './lines/media-playlist/playlist-type';
-import { TargetDuration } from './lines/media-playlist/targetduration';
-import { Byterange } from './lines/media-segment/byterange';
-import { ProgramDateTime } from './lines/media-segment/program-date-time';
-import { Discontinuity } from './lines/media-segment/discontinuity';
-import { Extinf } from './lines/media-segment/extinf';
-import { Key } from './lines/media-segment/key';
-import { Uri } from './lines/media-segment/uri';
-import { Map } from './lines/media-segment/map';
 import { HLSLine, HLSMediaPlaylist, HLSSegment } from './types';
 import { Segment } from './media-segment';
 import { HLSParsingError } from './errors/hls-parsing-error';
+import { Extm3u } from './tags/extm3u';
+import { Version } from './tags/version';
+import { Extinf } from './tags/extinf';
+import { Byterange } from './tags/byterange';
+import { Discontinuity } from './tags/discontinuity';
+import { Key } from './tags/key';
+import { Map } from './tags/map';
+import { TargetDuration } from './tags/targetduration';
+import { MediaSequence } from './tags/media-sequence';
+import { Endlist } from './tags/endlist';
+import { DiscontinuitySequence } from './tags/discontinuity-sequence';
+import { PlaylistType } from './tags/playlist-type';
+import { IFramesOnly } from './tags/i-frames-only';
+import { ProgramDateTime } from './tags/program-date-time';
+import { Uri } from './tags/uri';
+import { url } from 'inspector';
 
 export class MediaPlaylist implements HLSMediaPlaylist {
   extm3u: boolean;
@@ -129,6 +130,8 @@ export class MediaPlaylist implements HLSMediaPlaylist {
   }
 
   #parseSegments(lines: HLSLine[]) {
+    let key: Key;
+
     return lines
       .filter((l) => l.type === 'MEDIA_SEGMENT')
       .reduce((all, cur, idx, arr): HLSLine[][] => {
@@ -136,9 +139,24 @@ export class MediaPlaylist implements HLSMediaPlaylist {
           all.push([]);
         }
 
+        if (cur instanceof Key) {
+          if (key) {
+            if (key.keyformat !== cur.keyformat) {
+              throw new HLSParsingError();
+            }
+            key = undefined;
+          } else {
+            key = cur;
+          }
+          return all;
+        }
+
         all[all.length - 1].push(cur);
 
         if (cur instanceof Uri && idx !== arr.length - 1) {
+          if (key) {
+            all[all.length - 1].push(key);
+          }
           all.push([]);
         }
 

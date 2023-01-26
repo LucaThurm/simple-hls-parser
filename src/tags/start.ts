@@ -1,8 +1,7 @@
-import { HLSTagParsingError } from '../../errors/hls-tag-parsing-error';
-import { parseAttributeList } from '../../utils/parsing';
 import Joi from 'joi';
-import { HLSParsingError } from '../../errors/hls-parsing-error';
-import { HLSLine, HLSLineType } from '../../types';
+import { HLSParsingError } from '../errors/hls-parsing-error';
+import { HLSLine, HLSLineType } from '../types';
+import { parseAttributeList } from '../utils/parse-attribute-list';
 
 export class Start implements HLSLine {
   timeOffset: number;
@@ -17,7 +16,7 @@ export class Start implements HLSLine {
     const matches = line.match(/^#EXT-X-START:(.*)?$/);
 
     if (!matches) {
-      throw new HLSTagParsingError('#EXT-X-START', line);
+      throw new HLSParsingError();
     }
 
     const attributes = parseAttributeList(matches[1]);
