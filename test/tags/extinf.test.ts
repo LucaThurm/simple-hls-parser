@@ -1,4 +1,4 @@
-import { Extinf } from '../../src/lines/media-segment/extinf';
+import { Extinf } from '../../src/tags/extinf';
 
 const withInt = '#EXTINF:3,';
 

@@ -1,4 +1,4 @@
-import { MediaSequence } from '../../src/lines/media-playlist/media-sequence';
+import { MediaSequence } from '../../src/tags/media-sequence';
 
 const valid = '#EXT-X-MEDIA-SEQUENCE:2';
 

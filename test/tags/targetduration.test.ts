@@ -1,4 +1,4 @@
-import { TargetDuration } from '../../src/lines/media-playlist/targetduration';
+import { TargetDuration } from '../../src/tags/targetduration';
 
 const valid = '#EXT-X-TARGETDURATION:3';
 

@@ -1,4 +1,4 @@
-import { Version } from '../../src/lines/basic/version';
+import { Version } from '../../src/tags/version';
 
 const valid = '#EXT-X-VERSION:2';
 
