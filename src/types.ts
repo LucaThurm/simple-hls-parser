@@ -56,7 +56,7 @@ export interface HLSSegment {
   discontinuity?: boolean;
   key?: HLSSegmentKey;
   map?: HLSSegmentMap;
-  programDateTime?: string;
+  programDateTime?: number;
   daterange?: HLSDateRange;
   uri: string;
 }

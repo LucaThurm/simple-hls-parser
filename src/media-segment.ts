@@ -29,7 +29,7 @@ export class Segment implements HLSSegment {
 
   map?: HLSSegmentMap;
 
-  programDateTime?: string;
+  programDateTime?: number;
 
   daterange?: HLSDateRange;
 

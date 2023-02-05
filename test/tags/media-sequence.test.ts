@@ -10,7 +10,7 @@ const negativeValue = '#EXT-X-MEDIA-SEQUENCE:-1';
 
 const noValue = '#EXT-X-MEDIA-SEQUENCE';
 
-describe('EXT-X-MediaSequence', () => {
+describe('MediaSequence', () => {
   let instance: MediaSequence;
 
   it(`parses "${valid}"`, () => {

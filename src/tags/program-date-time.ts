@@ -3,14 +3,14 @@ import { HLSParsingError } from '../errors/hls-parsing-error';
 import Joi from 'joi';
 
 export class ProgramDateTime implements HLSLine {
-  value: string;
+  value: number;
 
   get type(): HLSLineType {
     return 'MEDIA_SEGMENT';
   }
 
   constructor(line: string) {
-    const matches = line.match(/^EXT-X-DATE-RANGE:(.*)$/);
+    const matches = line.match(/^#EXT-X-PROGRAM-DATE-TIME:([1-9][0-9]*)$/);
 
     if (!matches) {
       throw new HLSParsingError();
@@ -20,10 +20,12 @@ export class ProgramDateTime implements HLSLine {
   }
 
   #parseValue(raw: string) {
-    if (Joi.string().isoDate().validate(raw).error) {
+    const value = parseInt(raw);
+
+    if (Joi.number().integer().positive().required().validate(raw).error) {
       throw new HLSParsingError();
     }
 
-    return raw;
+    return value;
   }
 }

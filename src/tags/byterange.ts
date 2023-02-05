@@ -34,9 +34,9 @@ export class Byterange implements HLSLine, HLSSegmentByterange {
   }
 
   #parseStart(raw: string) {
-    const start = parseInt(raw);
+    const start = parseInt(raw) || undefined;
 
-    if (Joi.number().optional().integer().positive().validate(length).error) {
+    if (Joi.number().optional().integer().positive().validate(start).error) {
       throw new HLSParsingError();
     }
 

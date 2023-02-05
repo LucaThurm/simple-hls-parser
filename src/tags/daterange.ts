@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { HLSParsingError } from '../errors/hls-parsing-error';
 import {
-  HLSClientAttribute,
+  HLSClientAttribute as HLSClientAttributes,
   HLSDateRange,
   HLSLine,
   HLSLineType,
@@ -21,7 +21,7 @@ export class Daterange implements HLSLine, HLSDateRange {
 
   plannedDuration?: number;
 
-  clientAttributes?: HLSClientAttribute[];
+  clientAttributes?: HLSClientAttributes;
 
   scte35Cmd?: string;
 
@@ -36,7 +36,7 @@ export class Daterange implements HLSLine, HLSDateRange {
   }
 
   constructor(line: string) {
-    const matches = line.match(/^#EXT-X-DATERaNGE:(.*)$/);
+    const matches = line.match(/^#EXT-X-DATERANGE:(.*)$/);
 
     if (!matches) {
       throw new HLSParsingError();
@@ -66,7 +66,9 @@ export class Daterange implements HLSLine, HLSDateRange {
       attributes.find((a) => a.key === 'PLANNED-DURATION')?.value
     );
 
-    this.clientAttributes = attributes.filter((a) => a.key.match(/^X-(.*)$/));
+    this.clientAttributes = this.#parseClientAttributes(
+      attributes.filter((a) => a.key.match(/^X-(.*)$/))
+    );
 
     this.scte35Cmd = this.#parseSCTE(
       attributes.find((a) => a.key === 'SCTE35-CMD')?.value
@@ -120,13 +122,31 @@ export class Daterange implements HLSLine, HLSDateRange {
   }
 
   #parseDuration(raw: string) {
-    const duration = parseFloat(raw);
+    const duration = parseFloat(raw) || undefined;
 
     if (Joi.number().optional().min(0).validate(duration).error) {
       throw new HLSParsingError();
     }
 
     return duration;
+  }
+
+  #parseClientAttributes(raw: HLSClientAttributes[]) {
+    const attributes = raw.reduce(
+      (prev, cur) => ({ ...prev, [cur.key]: cur.value }),
+      {}
+    );
+
+    const validator = Joi.object().pattern(
+      /X-[a-zA-Z0-9-]+/,
+      Joi.alternatives(Joi.string().required(), Joi.number().required())
+    );
+
+    if (validator.validate(attributes).error) {
+      throw new HLSParsingError();
+    }
+
+    return attributes;
   }
 
   #parseSCTE(raw: string) {
@@ -142,11 +162,12 @@ export class Daterange implements HLSLine, HLSDateRange {
       throw new HLSParsingError();
     }
 
-    return true;
+    return !!raw || undefined;
   }
 
   #validateContenxt() {
-    const validDates = new Date(this.endDate) >= new Date(this.startDate);
+    const validDates =
+      !this.endDate || new Date(this.endDate) >= new Date(this.startDate);
 
     if (!validDates) {
       throw new HLSParsingError();

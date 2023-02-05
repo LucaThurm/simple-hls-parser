@@ -20,7 +20,7 @@ export class PlaylistType implements HLSLine {
   }
 
   #parseValue(raw: string) {
-    if (Joi.string().valid(['EVENT', 'VOD']).validate(raw).error) {
+    if (Joi.string().valid('EVENT', 'VOD').validate(raw).error) {
       throw new HLSParsingError();
     }
 

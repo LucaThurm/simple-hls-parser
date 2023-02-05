@@ -12,7 +12,7 @@ const missingComma = '#EXTINF:3';
 
 const badDuration = '#EXTINF:-3';
 
-describe('#EXTINF', () => {
+describe('Extinf', () => {
   it(`parses "${withInt}"`, () => {
     expect(() => {
       new Extinf(withInt);

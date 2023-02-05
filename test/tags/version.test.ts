@@ -10,7 +10,7 @@ const negativeVersion = '#EXT-X-VERSION:-1';
 
 const noVersion = '#EXT-X-VERSION';
 
-describe('EXT-X-VERSION', () => {
+describe('Version', () => {
   it(`parses "${valid}"`, () => {
     expect(() => {
       new Version(valid);

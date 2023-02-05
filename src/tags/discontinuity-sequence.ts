@@ -10,7 +10,9 @@ export class DiscontinuitySequence implements HLSLine {
   }
 
   constructor(line: string) {
-    const matches = line.match(/^#EXT-X-DISCONTINUITY-SEQUENCE$/);
+    const matches = line.match(
+      /^#EXT-X-DISCONTINUITY-SEQUENCE:(-?(?:[1-9][0-9]*)|0)$/
+    );
 
     if (!matches) {
       throw new HLSParsingError();

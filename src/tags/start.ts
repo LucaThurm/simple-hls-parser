@@ -31,6 +31,8 @@ export class Start implements HLSLine {
   }
 
   #parseTimeOffset(raw: string) {
+    console.log(raw);
+
     const timeOffset = parseFloat(raw);
 
     if (Joi.number().required().validate(timeOffset).error) {

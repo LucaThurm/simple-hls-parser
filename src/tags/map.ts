@@ -13,7 +13,7 @@ export class Map implements HLSLine, HLSSegmentMap {
   }
 
   constructor(line: string) {
-    const matches = line.match(/^EXT-X-MAP:(.*)$/);
+    const matches = line.match(/^#EXT-X-MAP:(.*)$/);
 
     if (!matches) {
       throw new HLSParsingError();
